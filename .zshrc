@@ -2,13 +2,13 @@
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
 # Path to your oh-my-zsh installation.
-export ZSH="/home/namtx/.oh-my-zsh"
+export ZSH="/Users/namtx/.oh-my-zsh"
 
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
 # to know which specific one was loaded, run: echo $RANDOM_THEME
 # See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
-ZSH_THEME="spaceship"
+ZSH_THEME="amuse"
 
 # Set list of themes to pick from when loading at random
 # Setting this variable when ZSH_THEME=random will cause zsh to load
@@ -68,7 +68,7 @@ ZSH_THEME="spaceship"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git zsh-autosuggestions)
+plugins=(git zsh-autosuggestions kubectl)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -89,6 +89,10 @@ source $ZSH/oh-my-zsh.sh
 # Compilation flags
 # export ARCHFLAGS="-arch x86_64"
 
+# https://github.com/caiogondim/bullet-train.zsh/issues/207
+export LANG=en_US.UTF-8
+export LC_ALL=en_US.UTF-8
+
 # Set personal aliases, overriding those provided by oh-my-zsh libs,
 # plugins, and themes. Aliases can be placed here, though oh-my-zsh
 # users are encouraged to define aliases within the ZSH_CUSTOM folder.
@@ -97,39 +101,45 @@ source $ZSH/oh-my-zsh.sh
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
-
-if [ -z $COLORTERM ]; then
-	ZSH_THEME="simplex"
-else
-	ZSH_THEM="amuse"
-fi
-
 alias vim="nvim"
-alias v="nvim"
+alias gaa="git add -A"
 alias gam="git commit --amend --no-edit"
 alias gpod="git pull origin develop"
+alias gl="git log --graph --oneline"
+alias grc="git rebase --continue"
+alias fms="foreman start -f Procfile.dev" 
+alias gp="git push origin $(git rev-parse --abbrev-ref HEAD) -f"
+alias rs="bundle exec rails s"
 
-# workspace
-export WORKSPACE="$HOME/workspace"
-function ws() {
-	cd "$WORKSPACE/$1"
-}
+# docker-compose aliases
+alias dcup="docker-compose up"
+alias dcb="docker-compose build"
+alias dcd="docker-compose down"
 
-# git
-function gp() {
-	git push origin $1 $2
-}
+alias e="emacs"
 
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+# Projects
+alias web="cd ~/workspace/the1-web"
+alias api="cd ~/workspace/the1-api"
 
-# Yarn
-export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
-# Rust
-export PATH="$HOME/.cargo/bin:$PATH"
+# Docker machine
+alias dm="docker-machine"
 
-neofetch
+# The next line updates PATH for the Google Cloud SDK.
+if [ -f '/Users/namtx/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/namtx/google-cloud-sdk/path.zsh.inc'; fi
 
-TMOUT=100
-TRAPALRM() { pipes.sh -t 4 }
+# The next line enables shell command completion for gcloud.
+if [ -f '/Users/namtx/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/namtx/google-cloud-sdk/completion.zsh.inc'; fi
+
+# RVM
+# rvm gemset use default
+
+# GO
+export GOPATH="/Users/namtx/go"
+export PATH="$PATH:$GOPATH/bin"
+
+# EDITOR
+export EDITOR="nvim"
+
+# GITHUB
+export GH_USER="namtx"
