@@ -31,7 +31,7 @@
  '(inhibit-startup-screen t)
  '(package-selected-packages
    (quote
-    (dockerfile-mode helm-projectile protobuf-mode magit restclient company markdown-mode slim-mode exec-path-from-shell yaml-mode powerline nyan-mode dashboard go-mode dired-ranger ranger neotree all-the-icons projectile general which-key helm evil-escape evil use-package))))
+    (evil-surround git-gutter diff-hl docker-compose-mode dockerfile-mode helm-projectile protobuf-mode restclient company markdown-mode slim-mode exec-path-from-shell yaml-mode powerline nyan-mode dashboard go-mode dired-ranger ranger neotree all-the-icons projectile general which-key helm evil-escape evil use-package))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -195,3 +195,16 @@
 (use-package company-tabnine
   :ensure t)
 (add-to-list 'company-backends #'company-tabnine)
+
+(require 'git-gutter+)
+(global-git-gutter+-mode)
+
+;; Endline
+(setq mode-require-final-newline nil)
+
+;; Vim-surround
+(use-package evil-surround
+  :ensure t
+  :config
+  (global-evil-surround-mode 1))
+
