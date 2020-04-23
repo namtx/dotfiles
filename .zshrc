@@ -2,7 +2,7 @@
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
 # Path to your oh-my-zsh installation.
-export ZSH="/Users/namtx/.oh-my-zsh"
+export ZSH="$HOME/.oh-my-zsh"
 
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
@@ -108,7 +108,6 @@ alias gpod="git pull origin develop"
 alias gl="git log --graph --oneline"
 alias grc="git rebase --continue"
 alias fms="foreman start -f Procfile.dev" 
-alias gp="git push origin $(git rev-parse --abbrev-ref HEAD) -f"
 alias rs="bundle exec rails s"
 
 # docker-compose aliases
@@ -116,11 +115,13 @@ alias dcup="docker-compose up"
 alias dcb="docker-compose build"
 alias dcd="docker-compose down"
 
-alias e="emacs"
+alias e="emacs -nw ."
 
 # Projects
 alias web="cd ~/workspace/the1-web"
 alias api="cd ~/workspace/the1-api"
+alias leetcode="cd ~/workspace/leetcode"
+alias fpx="cd ~/workspace/omise/a/backend-fpx"
 
 # Docker machine
 alias dm="docker-machine"
@@ -143,3 +144,14 @@ export EDITOR="nvim"
 
 # GITHUB
 export GH_USER="namtx"
+
+# Tmux
+export TERM="xterm-256color"
+alias t="tmux"
+
+# mupdf
+mupdf() {
+	mupdf-gl $1 >/dev/null 2>&1 &
+}
+
+neofetch
