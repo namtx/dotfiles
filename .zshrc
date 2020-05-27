@@ -107,6 +107,9 @@ alias gam="git commit --amend --no-edit"
 alias gpod="git pull origin develop"
 alias gl="git log --graph --oneline"
 alias grc="git rebase --continue"
+alias grcd="cd $(git rev-parse --show-toplevel)"
+alias gpush="git push origin $(git symbolic-ref --short HEAD)"
+alias grmu="git for-each-ref --sort=-committerdate --count=10 refs/heads/ --format='%(HEAD) %(color:yellow)%(refname:short)%(color:reset) - %(color:red)%(objectname:short)%(color:reset) - %(contents:subject) - %(authorname) (%(color:green)%(committerdate:relative)%(color:reset))'"
 alias fms="foreman start -f Procfile.dev" 
 alias rs="bundle exec rails s"
 
@@ -114,8 +117,6 @@ alias rs="bundle exec rails s"
 alias dcup="docker-compose up"
 alias dcb="docker-compose build"
 alias dcd="docker-compose down"
-
-alias e="emacs -nw ."
 
 # Projects
 alias web="cd ~/workspace/the1-web"
@@ -144,6 +145,18 @@ export EDITOR="nvim"
 
 # GITHUB
 export GH_USER="namtx"
+
+gdiff() {
+	git diff -w --word-diff=color ${1:-develop}
+}
+
+gbc() {
+  git log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr)%Creset' --abbrev-commit --date=relative $@..$(git rev-parse --abbrev-ref HEAD)
+}
+
+gbbc() {
+  git log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr)%Creset' --abbrev-commit --date=relative $(git rev-parse --abbrev-ref HEAD)..$@
+}
 
 # Tmux
 export TERM="xterm-256color"
