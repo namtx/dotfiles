@@ -32,10 +32,10 @@ call plug#end()
 " ██╔══╝  ██║  ██║██║   ██║   ██║   ██║██╔══██╗
 " ███████╗██████╔╝██║   ██║   ╚██████╔╝██║  ██║
 "
-:set number
-:set ruler
-:set rulerformat=%l\:%c
-:set cc=120
+set number
+set ruler
+set rulerformat=%l\:%c
+set cc=120
 " Tabs size
 autocmd FileType javascript setlocal tabstop=2|setl shiftwidth=2|setl softtabstop=2
 
@@ -73,19 +73,19 @@ let g:ranger_open_new_tab = 1
 "
 let mapleader = " "
 
-:nnoremap <leader>ev :vsplit $MYVIMRC<cr>
-:nnoremap <leader>sv :source $MYVIMRC<cr>
+nnoremap <leader>ev :vsplit $MYVIMRC<cr>
+nnoremap <leader>sv :source $MYVIMRC<cr>
 
-:nnoremap <leader>t :RangerCurrentFileNewTab<cr>
+nnoremap <leader>t :RangerCurrentFileNewTab<cr>
 nmap <leader>p o<Esc>p
 inoremap jk <Esc>
 
 " GOTO Code Definition
 nmap <leader>gd <Plug>(coc-definition)
 nmap <leader>gy <Plug>(coc-type-definition)
-:nnoremap <leader>cr :CocRestart
+nnoremap <leader>cr :CocRestart
 
-:nnoremap <leader>pf :CtrlP<cr>
+nnoremap <leader>pf :CtrlP<cr>
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
