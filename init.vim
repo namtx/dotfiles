@@ -19,6 +19,7 @@ call plug#begin('~/.local/share/nvim/plugged')
 	Plug 'mhinz/vim-startify'
 	Plug 'ThePrimeagen/vim-be-good'
 	Plug 'phanviet/vim-monokai-pro'
+	Plug 'tpope/vim-surround'
 call plug#end()
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
