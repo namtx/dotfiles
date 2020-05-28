@@ -9,18 +9,16 @@ let g:deoplete#enable_at_startup = 1
 " 						PLUGINS CONFIGURATION
 call plug#begin('~/.local/share/nvim/plugged')
 	Plug 'editorconfig/editorconfig-vim'
-	Plug 'ruanyl/vim-fixmyjs'
 	Plug 'airblade/vim-gitgutter'
 	Plug 'ctrlpvim/ctrlp.vim'
 	Plug 'neoclide/coc.nvim', {'do': { -> coc#util#install()}}
 	Plug 'tpope/vim-sleuth'
-	Plug 'pangloss/vim-javascript'
-	Plug 'mxw/vim-jsx'
 	Plug 'mhinz/vim-startify'
 	Plug 'rbgrouleff/bclose.vim'
 	Plug 'francoiscabrol/ranger.vim'
 	Plug 'mhinz/vim-startify'
 	Plug 'ThePrimeagen/vim-be-good'
+	Plug 'phanviet/vim-monokai-pro'
 call plug#end()
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -73,9 +71,20 @@ let g:ranger_open_new_tab = 1
 " ╚═╝  ╚═╝╚══════╝╚═╝     ╚═╝╚═╝  ╚═╝╚═╝
 "
 let mapleader = " "
+
 :nnoremap <leader>ev :vsplit $MYVIMRC<cr>
 :nnoremap <leader>sv :source $MYVIMRC<cr>
-:nnoremap <leader>t: RangerCurrentFileNewTab<cr>
+
+:nnoremap <leader>t :RangerCurrentFileNewTab<cr>
+nmap <leader>p o<Esc>p
+inoremap jk <Esc>
+
+" GOTO Code Definition
+nmap <leader>gd <Plug>(coc-definition)
+nmap <leader>gy <Plug>(coc-type-definition)
+:nnoremap <leader>cr :CocRestart
+
+:nnoremap <leader>pf :CtrlP<cr>
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -91,8 +100,3 @@ let mapleader = " "
 " Rust
 autocmd FileType rust nnoremap <buffer> <leader>ta :! cargo test<cr>
 autocmd FileType rust nnoremap <buffer> <leader>te :! cargo run<cr>
-
-inoremap jk <Esc>
-
-nmap ,p o<Esc>p
-
