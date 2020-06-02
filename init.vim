@@ -6,7 +6,6 @@ let g:deoplete#enable_at_startup = 1
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-" 						PLUGINS CONFIGURATION
 call plug#begin('~/.local/share/nvim/plugged')
 	Plug 'editorconfig/editorconfig-vim'
 	Plug 'airblade/vim-gitgutter'
@@ -20,6 +19,10 @@ call plug#begin('~/.local/share/nvim/plugged')
 	Plug 'ThePrimeagen/vim-be-good'
 	Plug 'phanviet/vim-monokai-pro'
 	Plug 'tpope/vim-surround'
+	Plug 'tpope/vim-eunuch'
+	Plug 'ayu-theme/ayu-vim'
+	Plug 'tpope/vim-vinegar'
+	Plug 'Yggdroot/indentLine'
 call plug#end()
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -33,6 +36,7 @@ call plug#end()
 " ███████╗██████╔╝██║   ██║   ╚██████╔╝██║  ██║
 "
 set number
+set relativenumber
 set ruler
 set rulerformat=%l\:%c
 set cc=120
@@ -58,10 +62,8 @@ endif
 
 " Ranger
 let g:ranger_open_new_tab = 1
-" let g:ranger_replace_netrw = 1
 
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+let g:indentLine_color_term = 239
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 " ██████╗ ███████╗███╗   ███╗ █████╗ ██████╗ 
@@ -72,11 +74,21 @@ let g:ranger_open_new_tab = 1
 " ╚═╝  ╚═╝╚══════╝╚═╝     ╚═╝╚═╝  ╚═╝╚═╝
 "
 let mapleader = " "
-
+" Vim config
 nnoremap <leader>ev :vsplit $MYVIMRC<cr>
 nnoremap <leader>sv :source $MYVIMRC<cr>
+" Tree
+nnoremap <leader>rr :RangerCurrentDirectory<cr>
+nnoremap <leader>ss :wq<cr>
+" window
+nnoremap <leader>w- :vsplit<cr>
+nnoremap <leader>w+ :sp<cr>
+nnoremap <leader>wh <C-w>h
+nnoremap <leader>wl <C-w>l
+nnoremap <leader>wj <C-w>j
+nnoremap <leader>wk <C-w>k
+nnoremap <leader>wt <C-w>T
 
-nnoremap <leader>t :RangerCurrentFileNewTab<cr>
 nmap <leader>p o<Esc>p
 inoremap jk <Esc>
 
