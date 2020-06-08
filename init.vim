@@ -37,6 +37,7 @@ set ruler
 set rulerformat=%l\:%c
 set cc=120
 set timeoutlen=1000 ttimeoutlen=5
+let mapleader = " "
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "							PLUGINS CONFIGURATIONS
@@ -66,7 +67,6 @@ nnoremap <leader>gs :G<cr>
 "							REMAPPINGS
 "
 
-let mapleader = " "
 " Vim config
 nnoremap <leader>ev :vsplit $MYVIMRC<cr>
 nnoremap <leader>sv :source $MYVIMRC<cr>
