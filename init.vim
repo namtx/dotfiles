@@ -11,20 +11,22 @@ call plug#begin('~/.local/share/nvim/plugged')
 	Plug 'airblade/vim-gitgutter'
 	Plug 'ctrlpvim/ctrlp.vim'
 	Plug 'neoclide/coc.nvim', {'do': { -> coc#util#install()}}
-	Plug 'tpope/vim-sleuth'
 	Plug 'mhinz/vim-startify'
 	Plug 'rbgrouleff/bclose.vim'
 	Plug 'francoiscabrol/ranger.vim'
 	Plug 'mhinz/vim-startify'
 	Plug 'ThePrimeagen/vim-be-good'
 	Plug 'phanviet/vim-monokai-pro'
-	Plug 'tpope/vim-surround'
-	Plug 'tpope/vim-eunuch'
 	Plug 'ayu-theme/ayu-vim'
-	Plug 'tpope/vim-vinegar'
 	Plug 'Yggdroot/indentLine'
 	Plug 'vim-airline/vim-airline'
 	Plug 'fatih/vim-go'
+	Plug 'mattn/emmet-vim'
+	Plug 'tpope/vim-fugitive'
+	Plug 'tpope/vim-vinegar'
+	Plug 'tpope/vim-eunuch'
+	Plug 'tpope/vim-surround'
+	Plug 'tpope/vim-sleuth'
 call plug#end()
 
 " Vim config
@@ -34,6 +36,7 @@ set relativenumber
 set ruler
 set rulerformat=%l\:%c
 set cc=120
+set timeoutlen=1000 ttimeoutlen=5
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "							PLUGINS CONFIGURATIONS
@@ -53,6 +56,11 @@ let g:indentLine_color_term = 239
 inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
 inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+
+" Vim-fugitive
+nnoremap <leader>gj :diffget //3<cr>
+nnoremap <leader>gf :diffget //2<cr>
+nnoremap <leader>gs :G<cr>
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "							REMAPPINGS
