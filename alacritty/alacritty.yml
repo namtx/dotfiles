@@ -170,7 +170,7 @@ font:
 # If `true`, bold text is drawn using the bright color variants.
 draw_bold_text_with_bright_colors: true
 
-# Colors (Tomorrow Night Bright)
+# Color schemes
 schemes:
   ayu_dark: &ayu_dark
     # Default colors
@@ -304,7 +304,7 @@ schemes:
       white:   '0xffffff'
     indexed_colors: []
 
-colors: *gruvbox_dark
+colors: *gruvbox_light
 # Visual Bell
 #
 # Any time the BEL code is received, Alacritty "rings" the visual bell. Once
