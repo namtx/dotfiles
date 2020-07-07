@@ -9,7 +9,7 @@ let g:deoplete#enable_at_startup = 1
 call plug#begin('~/.local/share/nvim/plugged')
 	Plug 'editorconfig/editorconfig-vim'
 	Plug 'airblade/vim-gitgutter'
-	Plug 'ctrlpvim/ctrlp.vim'
+	"Plug 'ctrlpvim/ctrlp.vim'
 	Plug 'neoclide/coc.nvim', {'do': { -> coc#util#install()}}
 	Plug 'mhinz/vim-startify'
 	Plug 'rbgrouleff/bclose.vim'
@@ -27,6 +27,13 @@ call plug#begin('~/.local/share/nvim/plugged')
 	Plug 'tpope/vim-eunuch'
 	Plug 'tpope/vim-surround'
 	Plug 'tpope/vim-sleuth'
+	Plug 'morhetz/gruvbox'
+	Plug 'dyng/ctrlsf.vim'
+	Plug 'tpope/vim-repeat'
+	Plug 'easymotion/vim-easymotion'
+	Plug 'voldikss/vim-floaterm'
+	Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+	Plug 'junegunn/fzf.vim'
 call plug#end()
 
 " Vim config
@@ -37,16 +44,14 @@ set ruler
 set rulerformat=%l\:%c
 set cc=120
 set timeoutlen=1000 ttimeoutlen=5
+set statusline=%<%f\ %h%m%r%{fugitive#statusline()}%=%-14.(%l\:%c%V%)
+
 let mapleader = " "
 
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"							PLUGINS CONFIGURATIONS
-"
-if executable('rg')
-	set grepprg=rg\ --color=never
-	let g:ctrlp_user_command = 'rg %s --files --color=never --glob ""'
-	let g:ctrlp_use_catching = 0
-endif
+colorscheme gruvbox
+
+"=====PLUGINS CONFIGURATIONS======
+nnoremap <C-p> :Files<cr>
 
 " Ranger
 let g:ranger_open_new_tab = 1
@@ -62,6 +67,15 @@ inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
 nnoremap <leader>gj :diffget //3<cr>
 nnoremap <leader>gf :diffget //2<cr>
 nnoremap <leader>gs :G<cr>
+
+" ctrlsf
+let g:ctrlsf_auto_focus = {
+	\ 'at': 'start',
+	\ }
+
+nmap <leader>sf <Plug>CtrlSFPrompt
+nmap <leader>ff <Plug>CtrlSFCwordPath<cr>
+
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "							REMAPPINGS
@@ -92,11 +106,30 @@ nnoremap <leader>cr :CocRestart
 
 nnoremap <leader>pf :CtrlP<cr>
 
+" Avoid using arrow keys
+nnoremap <Left> :echo "Use h instead"<cr>
+vnoremap <Left> :<C-u>echo "Use h instead"<cr>
+inoremap <Left> <C-o>:echo "Use h instead"<cr>
+
+nnoremap <Up> :echo "Use k instead"<cr>
+vnoremap <Up> :<C-u>echo "Use k instead"<cr>
+inoremap <Up> <C-o>:echo "Use k instead"<cr>
+
+nnoremap <Right> :echo "Use l instead"<cr>
+vnoremap <Right> :<C-u>echo "Use l instead"<cr>
+inoremap <Right> <C-o>:echo "Use l instead"<cr>
+
+nnoremap <Down> :echo "Use j instead"<cr>
+vnoremap <Down> :<C-u>echo "Use j instead"<cr>
+inoremap <Down> <C-o>:echo "Use j instead"<cr>
+
+" Moving
+inoremap <C-e> <C-o>$
+inoremap <C-a> <C-o>^
+
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "							LANGUAGE SPECIFIC
 "
-" Rust
-autocmd FileType rust nnoremap <buffer> <leader>ta :! cargo test<cr>
-autocmd FileType rust nnoremap <buffer> <leader>te :! cargo run<cr>
 " Golang
 let g:go_fmt_command = "goimports"
