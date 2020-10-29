@@ -1,3 +1,6 @@
+# Profiler
+# zmodload zsh/zprof
+
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
@@ -102,14 +105,16 @@ export LC_ALL=en_US.UTF-8
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 alias vim="nvim"
+alias v="nvim ."
 alias gaa="git add -A"
 alias gam="git commit --amend --no-edit"
+alias wtc="git commit -m '$(curl -s http://whatthecommit.com/index.txt)'"
 alias gpod="git pull origin develop"
 alias gl="git log --graph --oneline"
 alias grc="git rebase --continue"
-alias grcd="cd $(git rev-parse --show-toplevel)"
-alias gpush="git push origin $(git symbolic-ref --short HEAD)"
-alias grmu="git for-each-ref --sort=-committerdate --count=10 refs/heads/ --format='%(HEAD) %(color:yellow)%(refname:short)%(color:reset) - %(color:red)%(objectname:short)%(color:reset) - %(contents:subject) - %(authorname) (%(color:green)%(committerdate:relative)%(color:reset))'"
+# alias grcd="cd $(git rev-parse --show-toplevel)"
+# alias gpush="git push origin $(git symbolic-ref --short HEAD)"
+# alias grmu="git for-each-ref --sort=-committerdate --count=10 refs/heads/ --format='%(HEAD) %(color:yellow)%(refname:short)%(color:reset) - %(color:red)%(objectname:short)%(color:reset) - %(contents:subject) - %(authorname) (%(color:green)%(committerdate:relative)%(color:reset))'"
 alias fms="foreman start -f Procfile.dev" 
 alias rs="bundle exec rails s"
 
@@ -123,9 +128,22 @@ alias web="cd ~/workspace/the1-web"
 alias api="cd ~/workspace/the1-api"
 alias leetcode="cd ~/workspace/leetcode"
 alias fpx="cd ~/workspace/omise/a/backend-fpx"
+alias ws="cd ~/workspace"
 
 # Docker machine
 alias dm="docker-machine"
+
+# Vagrant
+alias vg="vagrant"
+alias vgs="vagrant ssh"
+
+# Terraform
+alias tf="terraform"
+
+# Kubernetes
+alias k="kubectl"
+alias kg="kubectl get"
+alias kd="kubectl describe"
 
 # The next line updates PATH for the Google Cloud SDK.
 if [ -f '/Users/namtx/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/namtx/google-cloud-sdk/path.zsh.inc'; fi
@@ -138,7 +156,10 @@ if [ -f '/Users/namtx/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/nam
 
 # GO
 export GOPATH="/Users/namtx/go"
-export PATH="$PATH:$GOPATH/bin"
+export PATH="/usr/local/bin:$PATH:$GOPATH/bin"
+
+# Composer
+export PATH="$PATH:$HOME/.composer/vendor/bin"
 
 # EDITOR
 export EDITOR="nvim"
@@ -147,7 +168,7 @@ export EDITOR="nvim"
 export GH_USER="namtx"
 
 gdiff() {
-	git diff -w --word-diff=color ${1:-develop}
+  git diff -w --word-diff=color ${1:-develop}
 }
 
 gbc() {
@@ -156,6 +177,12 @@ gbc() {
 
 gbbc() {
   git log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr)%Creset' --abbrev-commit --date=relative $(git rev-parse --abbrev-ref HEAD)..$@
+}
+
+# Utils
+mkdircd() {
+  mkdir -p ${1} && \
+    cd -P -- ${1}
 }
 
 # Tmux
@@ -167,4 +194,20 @@ mupdf() {
 	mupdf-gl $1 >/dev/null 2>&1 &
 }
 
-neofetch
+autoload -U +X bashcompinit && bashcompinit
+complete -o nospace -C /usr/local/bin/terraform terraform
+
+# NVM
+export NVM_DIR=~/.nvm
+
+source_nvm() {
+  source $(brew --prefix nvm)/nvm.sh
+}
+
+export NOTE_SOURCE="$HOME/workspace/namtx.dev/thinkspace/_posts/2020-10-21-daily-notes.md"
+note() {
+  echo "${date}" >> "$NOTE_SOURCE" && nvim $NOTE_SOURCE
+}
+
+# ZSH Profiler
+# zprof
