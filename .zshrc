@@ -209,5 +209,11 @@ note() {
   echo "${date}" >> "$NOTE_SOURCE" && nvim $NOTE_SOURCE
 }
 
+
 # ZSH Profiler
 # zprof
+
+# Project
+alias pc=~/Projects/personio/personio/perctl
+alias phpunit=~/Projects/personio/personio/vendor/phpunit/phpunit/phpunit
+export GPG_TTY=`tty`

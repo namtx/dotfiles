@@ -24,6 +24,14 @@ call plug#begin('~/.local/share/nvim/plugged')
 	Plug 'mattn/emmet-vim'
 	Plug 'tpope/vim-fugitive'
 	Plug 'tpope/vim-vinegar'
+"
+"  - to go up
+"  I to toggle style
+"  gh to toggle hidden dotfiles 
+"  . to pre-populate file path at the end of `:`
+"  y. to yank file path
+"  ~ to go home
+"  <c-6> to switch back to the previous buffer from the netw buffer
 	Plug 'tpope/vim-eunuch'
 	Plug 'tpope/vim-surround'
 	Plug 'tpope/vim-sleuth'
@@ -45,13 +53,12 @@ set rulerformat=%l\:%c
 set cc=120
 set timeoutlen=1000 ttimeoutlen=5
 set statusline=%<%f\ %h%m%r%{fugitive#statusline()}%=%-14.(%l\:%c%V%)
+set grepprg=rg\ --vimgrep\ --smart-case\ --follow
 
 let mapleader = " "
 
 colorscheme gruvbox
 
-"=====PLUGINS CONFIGURATIONS======
-nnoremap <C-p> :Files<cr>
 
 " Ranger
 let g:ranger_open_new_tab = 1
@@ -59,16 +66,19 @@ let g:ranger_open_new_tab = 1
 let g:indentLine_color_term = 239
 
 " CocVim
+"
 inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
 inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
 
 " Vim-fugitive
+"
 nnoremap <leader>gj :diffget //3<cr>
 nnoremap <leader>gf :diffget //2<cr>
 nnoremap <leader>gs :G<cr>
 
 " ctrlsf
+"
 let g:ctrlsf_auto_focus = {
 	\ 'at': 'start',
 	\ }
@@ -77,17 +87,18 @@ nmap <leader>sf <Plug>CtrlSFPrompt
 nmap <leader>ff <Plug>CtrlSFCwordPath<cr>
 
 
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"							REMAPPINGS
-"
-
 " Vim config
+"
 nnoremap <leader>ev :vsplit $MYVIMRC<cr>
 nnoremap <leader>sv :source $MYVIMRC<cr>
+
 " Tree
+"
 nnoremap <leader>rr :RangerCurrentDirectory<cr>
 nnoremap <leader>ss :wq<cr>
-" window
+
+" Window
+"
 nnoremap <leader>w- :vsplit<cr>
 nnoremap <leader>w+ :sp<cr>
 nnoremap <leader>wh <C-w>h
@@ -99,14 +110,33 @@ nnoremap <leader>wt <C-w>T
 nmap <leader>p o<Esc>p
 inoremap jk <Esc>
 
-" GOTO Code Definition
+" Coc VIM
+"
 nmap <leader>gd <Plug>(coc-definition)
 nmap <leader>gy <Plug>(coc-type-definition)
 nnoremap <leader>cr :CocRestart
+nnoremap <silent> K :call <SID>show_documentation()<CR>
 
-nnoremap <leader>pf :CtrlP<cr>
+function! s:show_documentation()
+  if (index(['vim','help'], &filetype) >= 0)
+    execute 'h '.expand('<cword>')
+  elseif (coc#rpc#ready())
+    call CocActionAsync('doHover')
+  else
+    execute '!' . &keywordprg . " " . expand('<cword>')
+  endif
+endfunction
+
+" Remap <C-f> and <C-b> for scroll float windows/popups.
+"
+" Note coc#float#scroll works on neovim >= 0.4.3 or vim >= 8.2.0750
+nnoremap <nowait><expr> <C-f> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-f>"
+nnoremap <nowait><expr> <C-b> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-b>"
+inoremap <nowait><expr> <C-f> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(1)\<cr>" : "\<Right>"
+inoremap <nowait><expr> <C-b> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(0)\<cr>" : "\<Left>"
 
 " Avoid using arrow keys
+"
 nnoremap <Left> :echo "Use h instead"<cr>
 vnoremap <Left> :<C-u>echo "Use h instead"<cr>
 inoremap <Left> <C-o>:echo "Use h instead"<cr>
@@ -124,12 +154,49 @@ vnoremap <Down> :<C-u>echo "Use j instead"<cr>
 inoremap <Down> <C-o>:echo "Use j instead"<cr>
 
 " Moving
+"
 inoremap <C-e> <C-o>$
 inoremap <C-a> <C-o>^
 
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"							LANGUAGE SPECIFIC
+" FZF
+" https://github.com/junegunn/fzf.vim#commands
 "
+nnoremap <C-p> :Files<cr>
+nnoremap <silent> <leader>bb :Buffers<cr>
+nnoremap <silent> <leader>fs :Rg<cr>
+nnoremap <silent> <leader>ff :Files<cr>
+nnoremap <silent> <leader>gf :GFiles?<cr>
+nnoremap <silent> <leader>/ :BLines<cr>
+nnoremap <silent> <leader>hh :History<cr>
+nnoremap <silent> <leader>ww :Windows<cr>
+
+" Terminal
+"
+" vim-powered terminal in split window
+map <Leader>t :term<cr>
+tmap <Leader>t <c-w>:term ++close<cr>
+
+" vim-powered terminal in new tab
+map <Leader>T :tab term<cr>
+tmap <Leader>T <c-w>:tab term<cr>
+
 " Golang
+"
 let g:go_fmt_command = "goimports"
+
+" Git
+"
+nnoremap <silent> <leader>gb :Git blame<cr>
+
+" Functions
+function! s:runPhpUnitTestAllFile()
+  set shellcmdflag=-ic
+  execute('FloatermNew '.'phpunit '.expand('%:p'))
+endfunction
+nnoremap <silent> <leader>tf :call <SID>runPhpUnitTestAllFile()<cr>
+
+function! s:runPhpUnitTestOnlyFunction()
+  set shellcmdflag=-ic
+  execute('FloatermNew '.'phpunit '.expand('%:p').' --filter '.expand('<cword>'))
+endfunction
+nnoremap <silent> <leader>tt :call <SID>runPhpUnitTestOnlyFunction()<cr>
