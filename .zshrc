@@ -6,6 +6,7 @@
 
 # Path to your oh-my-zsh installation.
 export ZSH="$HOME/.oh-my-zsh"
+export SHELL=$(which zsh)
 
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
@@ -109,7 +110,7 @@ alias v="nvim ."
 alias gaa="git add -A"
 alias gam="git commit --amend --no-edit"
 alias wtc="git commit -m '$(curl -s http://whatthecommit.com/index.txt)'"
-alias gpod="git pull origin develop"
+alias gpod="git pull origin master"
 alias gl="git log --graph --oneline"
 alias grc="git rebase --continue"
 # alias grcd="cd $(git rev-parse --show-toplevel)"
@@ -144,6 +145,11 @@ alias tf="terraform"
 alias k="kubectl"
 alias kg="kubectl get"
 alias kd="kubectl describe"
+alias wkp="watch kubectl get pods"
+alias ke="kubectl exect -it"
+
+# Fuzzy-search
+alias fgco="git branch | fzf | xargs git checkout"
 
 # The next line updates PATH for the Google Cloud SDK.
 if [ -f '/Users/namtx/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/namtx/google-cloud-sdk/path.zsh.inc'; fi
@@ -186,7 +192,7 @@ mkdircd() {
 }
 
 # Tmux
-export TERM="xterm-256color"
+export TERM="screen-256color"
 alias t="tmux"
 
 # mupdf
@@ -204,16 +210,39 @@ source_nvm() {
   source $(brew --prefix nvm)/nvm.sh
 }
 
-export NOTE_SOURCE="$HOME/workspace/namtx.dev/thinkspace/_posts/2020-10-21-daily-notes.md"
-note() {
-  echo "${date}" >> "$NOTE_SOURCE" && nvim $NOTE_SOURCE
+homestead() {
+  cd ~/Homestead && vagrant $*
 }
 
+# Java
+export JAVA_HOME=$(/usr/libexec/java_home -v 1.8.0_275)
 
 # ZSH Profiler
 # zprof
 
 # Project
+
+cdp() {
+  ls ~/Projects/personio | fzf | read project
+  cd "/Users/namtx/Projects/personio/${project}"
+}
+
+# Personio monolith
 alias pc=~/Projects/personio/personio/perctl
+alias mono="cd ~/Projects/personio/personio"
 alias phpunit=~/Projects/personio/personio/vendor/phpunit/phpunit/phpunit
+alias phack="git apply /Users/namtx/Projects/personio/hack/*"
+alias prhack="git apply -R /Users/namtx/Projects/personio/hack/*"
+alias monolog="lnav /Users/namtx/Projects/personio/personio/app/storage-local/logs/laravel.log"
 export GPG_TTY=`tty`
+
+# Personio CDOS
+alias cdos=~/Projects/personio/company-data-operations-service
+alias logcdos="kubectl logs $(kubectl get pod -l app=company-data-operations-service -o=jsonpath='{$.items[:1].metadata.name}')"
+
+#THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
+export SDKMAN_DIR="/Users/namtx/.sdkman"
+[[ -s "/Users/namtx/.sdkman/bin/sdkman-init.sh" ]] && source "/Users/namtx/.sdkman/bin/sdkman-init.sh"
+
+# FZF with ripgrep
+export FZF_DEFAULT_COMMAND='rg --files --no-ignore --hidden --follow -g "!{node_modules,.git,vendor}"'
