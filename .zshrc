@@ -167,6 +167,9 @@ export PATH="/usr/local/bin:$PATH:$GOPATH/bin"
 # Composer
 export PATH="$PATH:$HOME/.composer/vendor/bin"
 
+# PHP
+export PATH="$PATH:/usr/local/php5/bin"
+
 # EDITOR
 export EDITOR="nvim"
 
@@ -235,10 +238,6 @@ alias phack="git apply /Users/namtx/Projects/personio/hack/*"
 alias prhack="git apply -R /Users/namtx/Projects/personio/hack/*"
 alias monolog="lnav /Users/namtx/Projects/personio/personio/app/storage-local/logs/laravel.log"
 export GPG_TTY=`tty`
-
-# Personio CDOS
-alias cdos=~/Projects/personio/company-data-operations-service
-alias logcdos="kubectl logs $(kubectl get pod -l app=company-data-operations-service -o=jsonpath='{$.items[:1].metadata.name}')"
 
 #THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
 export SDKMAN_DIR="/Users/namtx/.sdkman"

@@ -1,5 +1,17 @@
 {
   "eslint.autoFixOnSave": true,
   "eslint.filetypes": ["javascript", "javascriptreact", "typescript", "typescriptreact"],
-  "prettier.disableSuccessMessage": true
+  "prettier.disableSuccessMessage": true,
+
+  "explorer.width": 45,
+  "explorer.icon.enableNerdfont": true,
+  "explorer.previewAction.onHover": false,
+  "explorer.floating.border.enable": false,
+  "explorer.floating.hideOnCocList": false,
+  "explorer.floating.width": 120,
+  "explorer.floating.height": 0,
+  "explorer.keyMappings.global": {
+    "v": "open:vsplit",
+    "o": ["expandable?", "expand", "open"]
+  }
 }

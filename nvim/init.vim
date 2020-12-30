@@ -10,6 +10,8 @@ call plug#begin('~/.local/share/nvim/plugged')
 	Plug 'tpope/vim-surround'
 	Plug 'tpope/vim-repeat'
 	Plug 'tpope/vim-vinegar' " Netrw
+	Plug 'tpope/vim-commentary'
+	Plug 'tpope/vim-abolish'
 
 	" Git plugins
 	Plug 'tpope/vim-fugitive'
@@ -22,8 +24,12 @@ call plug#begin('~/.local/share/nvim/plugged')
 
 	" Colors, themes
 	Plug 'morhetz/gruvbox'
+	" Plug 'arcticicestudio/nord-vim'
+	" Plug 'ayu-theme/ayu-vim'
+
 	Plug 'vim-airline/vim-airline'
 
+	Plug 'tpope/vim-obsession'
 	Plug 'tpope/vim-eunuch' " VIM sugar for the UNIX shell commands that need it the most
 	Plug 'tpope/vim-sleuth' " This plugin automatically adjusts 'shiftwidth' and 'expandtab',
 				" heuristically based on the current file
@@ -34,7 +40,20 @@ call plug#begin('~/.local/share/nvim/plugged')
 
 	" Others
 	Plug 'easymotion/vim-easymotion'
-call plug#end()
+	Plug 'itchyny/vim-cursorword'
+
+	" Snippets
+	" Plug 'SirVer/ultisnips'
+	
+	" Github Issues
+	Plug 'nvim-lua/popup.nvim'
+	Plug 'nvim-lua/plenary.nvim'
+	Plug 'nvim-telescope/telescope.nvim'
+	Plug 'pwntester/octo.nvim'
+
+	" Nerdtree
+	Plug 'ryanoasis/vim-devicons'
+ call plug#end()
 
 " Editor configurations
 set ruler
@@ -45,6 +64,7 @@ set grepprg=rg\ --vimgrep\ --smart-case\ --follow
 set timeoutlen=1000 ttimeoutlen=5
 set statusline=%<%f\ %h%m%r%{fugitive#statusline()}%=%-14.(%l\:%c%V%)
 set rulerformat=%l\:%c
+set encoding=utf8
 
 " <leader>
 let mapleader = " "
@@ -70,12 +90,14 @@ nnoremap <leader>wj <C-w>j
 nnoremap <leader>wk <C-w>k
 nnoremap <leader>wt <C-w>T
 
+" NERDTree
+map <leader>t :CocCommand explorer<cr>
+
 " Terminal
-map <Leader>t :term<cr>
-tmap <Leader>t <c-w>:term ++close<cr>
+tmap <leader>t <c-w>:term ++close<cr>
 " vim-powered terminal in new tab
-map <Leader>T :tab term<cr>
-tmap <Leader>T <c-w>:tab term<cr>
+map <leader>T :tab term<cr>
+tmap <leader>T <c-w>:tab term<cr>
 
 " Avoid using arrow keys
 nnoremap <Left> 	:echo "Use h instead"<cr>
@@ -97,6 +119,9 @@ inoremap <C-a> <C-o>^
 
 
 " =================== PLUGINS CONFIGURATIONS ===================
+" Airline
+let g:airline_powerline_fonts = 1
+
 " indentLine
 let g:indentLine_color_term = 239
 
@@ -149,6 +174,11 @@ let g:fzf_preview_window = ['right:60%']
 " Easymotion
 nmap <leader><leader>s <Plug>(easymotion-overwin-2)
 
+" UltiSnips
+" https://github.com/aalvarado/ultisnips-snippets
+"let g:UltiSnipsSnippetDirectories=[$HOME.'/.config/nvim/ultisnips-snippets']
+"let g:UltiSnipsUsePythonVersion=3
+
 " =================== LANGUAGES SUPPORTS ===================
 " golang
 let g:go_fmt_command = "goimports"
@@ -163,7 +193,3 @@ endif
 if isdirectory('./node_modules') && isdirectory('./node_modules/eslint')
   let g:coc_global_extensions += ['coc-eslint']
 endif
-
-" PHPUnit
-nnoremap <silent> <leader>tf :call phpfunctions#runPhpUnitTestAllFile()<cr>
-nnoremap <silent> <leader>tt :call phpfunctions#runPhpUnitTestOnlyFunction()<cr>
