@@ -10,5 +10,5 @@ jobs:
     - name: curl
       uses: wei/curl@master
       with:
-        args: https://lobsters-bot.vercel.app/api/index?channels=go&channels=ruby&channels=web&channels=security&channels=programming&channels=networking&channels=linux
+        args: https://lobsters-bot.vercel.app/api/index\?channels\=go\&channels\=ruby\&channels\=web\&channels\=security\&channels\=programming\&channels\=networking\&channels\=linux
 
