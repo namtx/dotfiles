@@ -43,7 +43,7 @@ ZSH_THEME="amuse"
 # DISABLE_LS_COLORS="true"
 
 # Uncomment the following line to disable auto-setting terminal title.
-# DISABLE_AUTO_TITLE="true"
+DISABLE_AUTO_TITLE="true"
 
 # Uncomment the following line to enable command auto-correction.
 # ENABLE_CORRECTION="true"
@@ -105,19 +105,22 @@ export LC_ALL=en_US.UTF-8
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
+
+alias v="nvim"
 alias vim="nvim"
-alias v="nvim ."
+
+# GIT ALIASES
 alias gaa="git add -A"
 alias gam="git commit --amend --no-edit"
-alias wtc="git commit -m '$(curl -s http://whatthecommit.com/index.txt)'"
 alias gpod="git pull origin master"
 alias gl="git log --graph --oneline"
 alias grc="git rebase --continue"
-# alias grcd="cd $(git rev-parse --show-toplevel)"
-# alias gpush="git push origin $(git symbolic-ref --short HEAD)"
-# alias grmu="git for-each-ref --sort=-committerdate --count=10 refs/heads/ --format='%(HEAD) %(color:yellow)%(refname:short)%(color:reset) - %(color:red)%(objectname:short)%(color:reset) - %(contents:subject) - %(authorname) (%(color:green)%(committerdate:relative)%(color:reset))'"
+alias gcof="git branch | fzf | xargs git checkout"
+alias lg="lazygit"
+alias gpom="git push origin master -f"
+alias gpum="git pull origin master"
+
 alias fms="foreman start -f Procfile.dev" 
-alias rs="bundle exec rails s"
 
 # docker-compose aliases
 alias dcup="docker-compose up"
@@ -125,11 +128,8 @@ alias dcb="docker-compose build"
 alias dcd="docker-compose down"
 
 # Projects
-alias web="cd ~/workspace/the1-web"
-alias api="cd ~/workspace/the1-api"
-alias leetcode="cd ~/workspace/leetcode"
-alias fpx="cd ~/workspace/omise/a/backend-fpx"
 alias ws="cd ~/workspace"
+alias cdf="ls -a | fzf | xargs cd"
 
 # Docker machine
 alias dm="docker-machine"
@@ -146,10 +146,10 @@ alias k="kubectl"
 alias kg="kubectl get"
 alias kd="kubectl describe"
 alias wkp="watch kubectl get pods"
-alias ke="kubectl exect -it"
+alias ke="kubectl exec -it"
 
-# Fuzzy-search
-alias fgco="git branch | fzf | xargs git checkout"
+# cht.sh
+alias ch="cht.sh"
 
 # The next line updates PATH for the Google Cloud SDK.
 if [ -f '/Users/namtx/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/namtx/google-cloud-sdk/path.zsh.inc'; fi
@@ -176,32 +176,26 @@ export EDITOR="nvim"
 # GITHUB
 export GH_USER="namtx"
 
-gdiff() {
-  git diff -w --word-diff=color ${1:-develop}
-}
-
-gbc() {
-  git log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr)%Creset' --abbrev-commit --date=relative $@..$(git rev-parse --abbrev-ref HEAD)
-}
-
-gbbc() {
-  git log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr)%Creset' --abbrev-commit --date=relative $(git rev-parse --abbrev-ref HEAD)..$@
-}
-
-# Utils
+# UTILS
 mkdircd() {
   mkdir -p ${1} && \
     cd -P -- ${1}
 }
 
+# Connect to Airpods
+airpod() {
+  airpod_address=$(blueutil --paired --format json | jq '.[] | select(.name | contains("Airpods")) | .address')
+  echo $airpod_address
+  blueutil --connect $airpod_address
+}
+
+wtc() {
+  git commit -m "$(curl -s http://whatthecommit.com/index.txt)"
+}
+
 # Tmux
 export TERM="screen-256color"
 alias t="tmux"
-
-# mupdf
-mupdf() {
-	mupdf-gl $1 >/dev/null 2>&1 &
-}
 
 autoload -U +X bashcompinit && bashcompinit
 complete -o nospace -C /usr/local/bin/terraform terraform
@@ -218,25 +212,16 @@ homestead() {
 }
 
 # Java
-export JAVA_HOME=$(/usr/libexec/java_home -v 1.8.0_275)
+export JAVA_HOME=$(/usr/libexec/java_home -v 11.0.9.1)
 
-# ZSH Profiler
-# zprof
-
-# Project
-
+# Personio monolith
+alias pc=~/Projects/personio/personio/perctl
+alias monolog="lnav /Users/namtx/Projects/personio/personio/app/storage-local/logs/laravel.log"
 cdp() {
   ls ~/Projects/personio | fzf | read project
   cd "/Users/namtx/Projects/personio/${project}"
 }
 
-# Personio monolith
-alias pc=~/Projects/personio/personio/perctl
-alias mono="cd ~/Projects/personio/personio"
-alias phpunit=~/Projects/personio/personio/vendor/phpunit/phpunit/phpunit
-alias phack="git apply /Users/namtx/Projects/personio/hack/*"
-alias prhack="git apply -R /Users/namtx/Projects/personio/hack/*"
-alias monolog="lnav /Users/namtx/Projects/personio/personio/app/storage-local/logs/laravel.log"
 export GPG_TTY=`tty`
 
 #THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
@@ -245,3 +230,10 @@ export SDKMAN_DIR="/Users/namtx/.sdkman"
 
 # FZF with ripgrep
 export FZF_DEFAULT_COMMAND='rg --files --no-ignore --hidden --follow -g "!{node_modules,.git,vendor}"'
+
+neofetch
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+# Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
+export PATH="$PATH:$HOME/.rvm/bin"
