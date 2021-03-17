@@ -184,8 +184,8 @@ mkdircd() {
 
 # Connect to Airpods
 airpod() {
-  airpod_address=$(blueutil --paired --format json | jq '.[] | select(.name | contains("Airpods")) | .address')
-  echo $airpod_address
+  airpod_address=$(blueutil --paired --format json | jq '.[] | select(.name | contains("Airpods")) | .address' | tr -d '"')
+
   blueutil --connect $airpod_address
 }
 
