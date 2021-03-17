@@ -211,6 +211,26 @@ homestead() {
   cd ~/Homestead && vagrant $*
 }
 
+conf() {
+  case $1 in
+    nvim)
+      nvim ~/.config/nvim/init.vim
+      ;;
+    skhd)
+      nvim ~/.config/skhd/skhdrc
+      ;;
+    kitty)
+      nvim ~/.config/kitty/kitty.conf
+      ;;
+    zsh)
+      nvim ~/.zshrc
+      ;;
+    *)
+      nvim $1
+      ;;
+  esac
+}
+
 # Java
 export JAVA_HOME=$(/usr/libexec/java_home -v 11.0.9.1)
 
