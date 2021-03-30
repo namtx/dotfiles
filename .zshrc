@@ -222,6 +222,9 @@ conf() {
     kitty)
       nvim ~/.config/kitty/kitty.conf
       ;;
+    yabai)
+      nvim ~/.config/yabai/yabairc
+      ;;
     zsh)
       nvim ~/.zshrc
       ;;
@@ -233,6 +236,9 @@ conf() {
 
 # Java
 export JAVA_HOME=$(/usr/libexec/java_home -v 11.0.9.1)
+
+# C++11
+alias cpp11="clang++ -std=c++11 -stdlib=libc++"
 
 # Personio monolith
 alias pc=~/Projects/personio/personio/perctl

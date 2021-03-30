@@ -24,7 +24,7 @@ ln -s $PWD/spacebar/spacebarrc $HOME/.config/spacebar
 
 # kitty
 ln -s $PWD/kitty/session.kitty $HOME/.config/kitty/session.kitty
-ln -s $PWD/kitty/kitty. $HOME/.config/kitty/session.kitty
+ln -s $PWD/kitty/session.conf $HOME/.config/kitty/session.conf
 
 # karabiner
 ln -s $PWD/karabiner/karabiner.json $HOME/.config/karabiner
