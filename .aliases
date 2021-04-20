@@ -4,6 +4,8 @@ alias v="nvim"
 alias vim="nvim"
 alias fvim="fzfp | xargs nvim"
 
+alias t="tmux"
+
 # GIT ALIASES
 alias gaa="git add -A"
 alias gam="git commit --amend --no-edit"

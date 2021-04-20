@@ -75,6 +75,7 @@ DISABLE_AUTO_TITLE="true"
 plugins=(git zsh-autosuggestions kubectl)
 
 source $ZSH/oh-my-zsh.sh
+source $HOME/.zsh_functions
 
 # User configuration
 
@@ -130,26 +131,8 @@ export EDITOR="nvim"
 # GITHUB
 export GH_USER="namtx"
 
-# UTILS
-mkdircd() {
-  mkdir -p ${1} && \
-    cd -P -- ${1}
-}
-
-# Connect to Airpods
-airpod() {
-  airpod_address=$(blueutil --paired --format json | jq '.[] | select(.name | contains("Airpods")) | .address' | tr -d '"')
-
-  blueutil --connect $airpod_address
-}
-
-wtc() {
-  git commit -m "$(curl -s http://whatthecommit.com/index.txt)"
-}
-
 # Tmux
 export TERM="screen-256color"
-alias t="tmux"
 
 autoload -U +X bashcompinit && bashcompinit
 # complete -o nospace -C /usr/local/bin/terraform terraform
@@ -157,55 +140,8 @@ autoload -U +X bashcompinit && bashcompinit
 # NVM
 export NVM_DIR=~/.nvm
 
-source_nvm() {
-  source $(brew --prefix nvm)/nvm.sh
-}
-
-homestead() {
-  cd ~/Homestead && vagrant $*
-}
-
-conf() {
-  case $1 in
-    nvim)
-      nvim ~/.config/nvim/init.vim
-      ;;
-    skhd)
-      nvim ~/.config/skhd/skhdrc
-      ;;
-    kitty)
-      nvim ~/.config/kitty/kitty.conf
-      ;;
-    yabai)
-      nvim ~/.config/yabai/yabairc
-      ;;
-    zsh)
-      nvim ~/.zshrc
-      ;;
-    *)
-      nvim $1
-      ;;
-  esac
-}
-
-function pr-checkout() {
-  local pr_number
-  pr_number=$(
-    glab mr list |
-    fzf |
-    sed 's/^!\([0-9][0-9]*\).*/\1/'
-  )
-
-  glab mr checkout "$pr_number"
-}
-
 # Java
 export JAVA_HOME=$(/usr/libexec/java_home -v 11.0.9.1)
-
-cdp() {
-  ls ~/Projects/personio | fzfp | read project
-  cd "/Users/namtx/Projects/personio/${project}"
-}
 
 export GPG_TTY=`tty`
 
@@ -216,7 +152,7 @@ export SDKMAN_DIR="/Users/namtx/.sdkman"
 # FZF with ripgrep
 export FZF_DEFAULT_COMMAND='rg --files --no-ignore --hidden --follow -g "!{node_modules,.git,vendor}"'
 
-neofetch
+# neofetch
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 

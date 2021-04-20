@@ -1,0 +1,63 @@
+#!/usr/local/bin/zsh
+
+set -e
+
+function cdp() {
+  ls ~/Projects/personio | fzfp | read project
+  cd "/Users/namtx/Projects/personio/${project}"
+}
+
+function pr-checkout() {
+  local pr_number
+  pr_number=$(
+    glab mr list |
+    fzf |
+    sed 's/^!\([0-9][0-9]*\).*/\1/'
+  )
+
+  glab mr checkout "$pr_number"
+}
+
+function conf() {
+  case $1 in
+    nvim)
+      nvim ~/.config/nvim/init.vim
+      ;;
+    skhd)
+      nvim ~/.config/skhd/skhdrc
+      ;;
+    kitty)
+      nvim ~/.config/kitty/kitty.conf
+      ;;
+    yabai)
+      nvim ~/.config/yabai/yabairc
+      ;;
+    zsh)
+      nvim ~/.zshrc
+      ;;
+    *)
+      nvim $1
+      ;;
+  esac
+}
+
+function source_nvm() {
+  source $(brew --prefix nvm)/nvm.sh
+}
+
+# Connect to Airpods
+function airpod() {
+  airpod_address=$(blueutil --paired --format json | jq '.[] | select(.name | contains("Airpods")) | .address' | tr -d '"')
+
+  blueutil --connect $airpod_address
+}
+
+function wtc() {
+  git commit -m "$(curl -s http://whatthecommit.com/index.txt)"
+}
+
+# UTILS
+function mkdircd() {
+  mkdir -p ${1} && \
+    cd -P -- ${1}
+}
