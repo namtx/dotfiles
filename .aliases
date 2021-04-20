@@ -1,0 +1,55 @@
+#!/bin/zsh
+
+alias v="nvim"
+alias vim="nvim"
+alias fvim="fzfp | xargs nvim"
+
+# GIT ALIASES
+alias gaa="git add -A"
+alias gam="git commit --amend --no-edit"
+alias gpod="git pull origin master"
+alias gl="git log --graph --oneline"
+alias grc="git rebase --continue"
+alias gcof="git branch | fzf | xargs git checkout"
+alias lg="lazygit"
+alias gpom="git push origin master -f"
+alias gpum="git pull origin master"
+
+alias fms="foreman start -f Procfile.dev" 
+
+# docker-compose aliases
+alias dcup="docker-compose up"
+alias dcb="docker-compose build"
+alias dcd="docker-compose down"
+
+# Projects
+alias ws="cd ~/workspace"
+alias cdf="ls -a | fzf | xargs cd"
+
+# Docker machine
+alias dm="docker-machine"
+
+# Vagrant
+alias vg="vagrant"
+alias vgs="vagrant ssh"
+
+# Terraform
+alias tf="terraform"
+
+# Kubernetes
+alias k="kubectl"
+alias kg="kubectl get"
+alias kd="kubectl describe"
+alias wkp="watch kubectl get pods"
+alias ke="kubectl exec -it"
+
+# cht.sh
+alias ch="cht.sh"
+
+# C++11
+alias cpp11="clang++ -std=c++11 -stdlib=libc++"
+
+# Personio
+alias pc=~/Projects/personio/personio/perctl
+alias monolog="lnav /Users/namtx/Projects/personio/personio/app/storage-local/logs/laravel.log"
+

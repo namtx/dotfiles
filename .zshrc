@@ -102,54 +102,8 @@ export LC_ALL=en_US.UTF-8
 # users are encouraged to define aliases within the ZSH_CUSTOM folder.
 # For a full list of active aliases, run `alias`.
 #
-# Example aliases
-# alias zshconfig="mate ~/.zshrc"
-# alias ohmyzsh="mate ~/.oh-my-zsh"
 
-alias v="nvim"
-alias vim="nvim"
-
-# GIT ALIASES
-alias gaa="git add -A"
-alias gam="git commit --amend --no-edit"
-alias gpod="git pull origin master"
-alias gl="git log --graph --oneline"
-alias grc="git rebase --continue"
-alias gcof="git branch | fzf | xargs git checkout"
-alias lg="lazygit"
-alias gpom="git push origin master -f"
-alias gpum="git pull origin master"
-
-alias fms="foreman start -f Procfile.dev" 
-
-# docker-compose aliases
-alias dcup="docker-compose up"
-alias dcb="docker-compose build"
-alias dcd="docker-compose down"
-
-# Projects
-alias ws="cd ~/workspace"
-alias cdf="ls -a | fzf | xargs cd"
-
-# Docker machine
-alias dm="docker-machine"
-
-# Vagrant
-alias vg="vagrant"
-alias vgs="vagrant ssh"
-
-# Terraform
-alias tf="terraform"
-
-# Kubernetes
-alias k="kubectl"
-alias kg="kubectl get"
-alias kd="kubectl describe"
-alias wkp="watch kubectl get pods"
-alias ke="kubectl exec -it"
-
-# cht.sh
-alias ch="cht.sh"
+source $HOME/.aliases
 
 # The next line updates PATH for the Google Cloud SDK.
 if [ -f '/Users/namtx/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/namtx/google-cloud-sdk/path.zsh.inc'; fi
@@ -198,7 +152,7 @@ export TERM="screen-256color"
 alias t="tmux"
 
 autoload -U +X bashcompinit && bashcompinit
-complete -o nospace -C /usr/local/bin/terraform terraform
+# complete -o nospace -C /usr/local/bin/terraform terraform
 
 # NVM
 export NVM_DIR=~/.nvm
@@ -234,17 +188,22 @@ conf() {
   esac
 }
 
+function pr-checkout() {
+  local pr_number
+  pr_number=$(
+    glab mr list |
+    fzf |
+    sed 's/^!\([0-9][0-9]*\).*/\1/'
+  )
+
+  glab mr checkout "$pr_number"
+}
+
 # Java
 export JAVA_HOME=$(/usr/libexec/java_home -v 11.0.9.1)
 
-# C++11
-alias cpp11="clang++ -std=c++11 -stdlib=libc++"
-
-# Personio monolith
-alias pc=~/Projects/personio/personio/perctl
-alias monolog="lnav /Users/namtx/Projects/personio/personio/app/storage-local/logs/laravel.log"
 cdp() {
-  ls ~/Projects/personio | fzf | read project
+  ls ~/Projects/personio | fzfp | read project
   cd "/Users/namtx/Projects/personio/${project}"
 }
 
