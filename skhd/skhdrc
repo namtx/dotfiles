@@ -1,4 +1,4 @@
-shift + cmd - return : /Applications/kitty.app/Contents/MacOS/kitty --single-instance -d ~
+shift + cmd - return : /Applications/Alacritty.app/Contents/MacOS/alacritty -e tmux
 
 shift + alt - e : yabai -m space --balance
 

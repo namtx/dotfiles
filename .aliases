@@ -1,5 +1,3 @@
-#!/bin/zsh
-
 alias v="nvim"
 alias vim="nvim"
 alias fvim="fzfp | xargs nvim"
@@ -12,7 +10,7 @@ alias gam="git commit --amend --no-edit"
 alias gpod="git pull origin master"
 alias gl="git log --graph --oneline"
 alias grc="git rebase --continue"
-alias gcof="git branch | fzf | xargs git checkout"
+alias gcof="git branch | fzfp | xargs git checkout"
 alias lg="lazygit"
 alias gpom="git push origin master -f"
 alias gpum="git pull origin master"
@@ -26,7 +24,7 @@ alias dcd="docker-compose down"
 
 # Projects
 alias ws="cd ~/workspace"
-alias cdf="ls -a | fzf | xargs cd"
+alias cdf="ls -a | fzfp | xargs cd"
 
 # Docker machine
 alias dm="docker-machine"
