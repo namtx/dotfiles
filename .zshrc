@@ -105,6 +105,7 @@ export LC_ALL=en_US.UTF-8
 #
 
 source $HOME/.aliases
+source $HOME/.env
 
 # The next line updates PATH for the Google Cloud SDK.
 if [ -f '/Users/namtx/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/namtx/google-cloud-sdk/path.zsh.inc'; fi
@@ -157,4 +158,4 @@ export FZF_DEFAULT_COMMAND='rg --files --no-ignore --hidden --follow -g "!{node_
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 # Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
-export PATH="$PATH:$HOME/.rvm/bin"
+export PATH="$PATH:$HOME/.rvm/bin:/usr/local/Cellar/openvpn/2.5.1/sbin"

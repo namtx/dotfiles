@@ -1,4 +1,4 @@
-function cdp() {
+function fpr() {
   ls ~/Projects/personio | fzfp | read project
   cd "/Users/namtx/Projects/personio/${project}"
 }
@@ -56,4 +56,24 @@ function wtc() {
 function mkdircd() {
   mkdir -p ${1} && \
     cd -P -- ${1}
+}
+
+function telegram() {
+  ps aux | rg -v rg | rg '/Applications/Telegram.app/Contents/MacOS/Telegram' | awk '{print $2}' | read telegram_pid
+  if [[ $telegram_pid ]]; then
+    kill $telegram_pid
+  fi
+
+  ls ~/telegram-accounts | fzfp | read telegram_account
+  
+  cp -R ~/telegram-accounts/${telegram_account}/. ~/Library/Application\ Support/Telegram\ Desktop
+  /Applications/Telegram.app/Contents/MacOS/Telegram
+}
+
+function help() {
+  case $1 in
+    skhd)
+      bat ~/.config/skhd/skhdrc
+      ;;
+  esac
 }

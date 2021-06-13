@@ -45,3 +45,7 @@ shift + cmd - 8: yabai -m window --space 8; yabai -m space --focus 8
 shift + cmd - 9: yabai -m window --space 9; yabai -m space --focus 9
 alt + cmd - h: yabai -m window --space prev; yabai -m space --focus prev
 alt + cmd - l: yabai -m window --space next; yabai -m space --focus next
+
+alt + cmd - s: yabai -m config layout stack
+alt + cmd - b: yabai -m config layout bsp 
+alt + cmd - f: yabai -m config layout float 
