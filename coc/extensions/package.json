@@ -9,6 +9,7 @@
     "coc-java": ">=1.5.3",
     "coc-phpls": ">=2.2.0",
     "coc-prettier": ">=1.1.20",
+    "coc-rls": ">=1.1.6",
     "coc-sh": ">=0.6.0",
     "coc-snippets": ">=2.4.1",
     "coc-solargraph": ">=1.2.0",
