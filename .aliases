@@ -52,3 +52,7 @@ alias cpp11="clang++ -std=c++11 -stdlib=libc++"
 # Personio
 alias pc=~/Projects/personio/personio/perctl
 alias monolog="lnav /Users/namtx/Projects/personio/personio/app/storage-local/logs/laravel.log"
+
+# Kubernetes
+alias kctx="kubectx"
+alias kns="kubens"
