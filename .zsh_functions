@@ -77,3 +77,9 @@ function help() {
       ;;
   esac
 }
+
+# fuzzy search the commit message and show its changes
+function gscf() { 
+  git log --graph --oneline | fzfp | choose 1 | xargs git show
+}
+

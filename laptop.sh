@@ -28,3 +28,6 @@ ln -s $PWD/kitty/session.conf $HOME/.config/kitty/session.conf
 
 # karabiner
 ln -s $PWD/karabiner/karabiner.json $HOME/.config/karabiner
+
+# tmux 
+ln -s $PWD/.tmux.conf $HOME/.tmux.conf
