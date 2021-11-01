@@ -30,11 +30,14 @@ paq {'tpope/vim-commentary'}
 paq {'Yggdroot/indentLine'}
 paq {'tpope/vim-fugitive'}
 paq {'itchyny/vim-cursorword'}
+paq {'williamboman/nvim-lsp-installer'}
+paq {'beauwilliams/focus.nvim'}
 g['deoplete#enable_at_startup'] = 1  -- enable deoplete at startup
 
 require('nvim-tree').setup {}
+require('focus').setup({ signcolumn = false, number = false })
 
---- Options
+-- Options
 g.mapleader = " "
 opt.termguicolors = true
 opt.number = true
@@ -42,18 +45,24 @@ opt.expandtab = true
 opt.tabstop = 2
 opt.hlsearch = true
 
---- Mappings
+-- Commands
+cmd 'au TextYankPost * lua vim.highlight.on_yank {on_visual = false}'  -- disabled in visual mode
+
+-- Mappings
 
 map('n', '<leader>w-', ':vsplit<cr>')
 map('n', '<leader>w=', ':sp<cr>')
-map('i', '<leader>jk', '<esc>')
-map('n', '<leader>wh', '<C-w>h')
-map('n', '<leader>wl', '<C-w>l')
-map('n', '<leader>wj', '<C-w>j')
-map('n', '<leader>wk', '<C-w>k')
--- moving in insert mode
+map('i', 'jk', '<esc>')
+map('n', '<leader>wh', ':FocusSplitLeft<cr>', {silent = true})
+map('n', '<leader>wl', ':FocusSplitRight<cr>', {silent = true})
+map('n', '<leader>wj', ':FocusSplitDown<cr>', {silent = true})
+map('n', '<leader>wk', ':FocusSplitUp<cr>', {silent = true})
 map('i', '<C-a>', '<C-o>^')
 map('i', '<C-e>', '<C-o>$')
+
+-- <Tab> to navigate the completion menu
+map('i', '<S-Tab>', 'pumvisible() ? "\\<C-p>" : "\\<Tab>"', {expr = true})
+map('i', '<Tab>', 'pumvisible() ? "\\<C-n>" : "\\<Tab>"', {expr = true})
 
 --- Plugin Mappings
 map('n', '<C-p>', ':Files <cr>')
@@ -64,3 +73,18 @@ map('n', '<leader>hh', ':History<cr>')
 map('n', '<leader>/', ':BLines<cr>')
 map('n', '<leader>mm', ':Marks<cr>')
 map('n', '<leader>gb', ':Git blame<cr>')
+
+--- LSP Mappings
+local lsp = require 'lspconfig'
+local lsp_installer = require 'nvim-lsp-installer'
+require('lspfuzzy').setup {}
+
+lsp_installer.on_server_ready(function(server)
+    local opts = {}
+
+    server:setup(opts)
+    cmd [[ do User LspAttachBuffers ]]
+end)
+
+map('n', 'K', '<cmd>lua vim.lsp.buf.hover()<CR>')
+map('n', '<leader>gf', '<cmd>lua vim.lsp.buf.definition()<CR>')
