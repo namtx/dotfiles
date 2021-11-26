@@ -122,3 +122,13 @@ optimize_route() {
     echo "-------"
   done
 }
+
+function gpod() {
+  master_branch_exists=`git show-ref refs/heads/master`
+  echo $master_branch_exists
+  if [ -n "$master_branch_exists" ]; then
+    git pull origin master
+  else
+    git pull origin main
+  fi
+}

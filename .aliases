@@ -7,7 +7,6 @@ alias t="tmux"
 # GIT ALIASES
 alias gaa="git add -A"
 alias gam="git commit --amend --no-edit"
-alias gpod="git pull origin master"
 alias gl="git log --graph --oneline"
 alias grc="git rebase --continue"
 alias gcof="git branch | fzfp | xargs git checkout"
