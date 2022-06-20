@@ -2,6 +2,8 @@ alias v="nvim"
 alias vim="nvim"
 alias fvim="fzfp | xargs nvim"
 
+# Tmux
+alias ta="tmux attach"
 alias t="tmux"
 
 # GIT ALIASES
@@ -49,7 +51,7 @@ alias ch="cht.sh"
 alias cpp11="clang++ -std=c++11 -stdlib=libc++"
 
 # Personio
-alias pc=~/Projects/personio/personio/perctl
+alias pc='/usr/local/bin/perctl' 
 alias monolog="lnav /Users/namtx/Projects/personio/personio/app/storage-local/logs/laravel.log"
 
 # Kubernetes

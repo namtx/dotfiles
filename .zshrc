@@ -146,6 +146,8 @@ export SDKMAN_DIR="/Users/namtx/.sdkman"
 
 # FZF with ripgrep
 export FZF_DEFAULT_COMMAND='rg --files --no-ignore --hidden --follow -g "!{node_modules,.git,vendor}"'
+export FZF_DEFAULT_COMMAND='fd --type file'
+export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 
 # neofetch
 
@@ -161,3 +163,5 @@ if [ -f '/Users/namtx/workspace/rikaku/rikaku/rikaku-cloud-function/google-cloud
 if [ -f '/Users/namtx/workspace/rikaku/rikaku/rikaku-cloud-function/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/namtx/workspace/rikaku/rikaku/rikaku-cloud-function/google-cloud-sdk/completion.zsh.inc'; fi
 
 export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
+export PATH="/usr/local/opt/php@7.4/bin:$PATH"
+export PATH="/usr/local/opt/php@7.4/sbin:$PATH"

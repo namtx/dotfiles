@@ -132,3 +132,11 @@ function gpod() {
     git pull origin main
   fi
 }
+
+# Personio
+#
+# Run test through Kubernetes pod
+function kpunit() {
+  local pod_name=$(kubectl get pods | fzf | awk '{print $1}')
+  kubectl exec -it $pod_name -- vendor/phpunit/phpunit/phpunit $1
+}
