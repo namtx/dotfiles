@@ -129,6 +129,12 @@ export GH_USER="namtx"
 # Tmux
 export TERM="screen-256color"
 
+# AWS
+
+# aws-vault
+export AWS_VAULT_KEYCHAIN_NAME="login"
+export AWS_SESSION_TTL="12h"
+
 autoload -U +X bashcompinit && bashcompinit
 # complete -o nospace -C /usr/local/bin/terraform terraform
 
@@ -165,3 +171,5 @@ if [ -f '/Users/namtx/workspace/rikaku/rikaku/rikaku-cloud-function/google-cloud
 export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
 export PATH="/usr/local/opt/php@7.4/bin:$PATH"
 export PATH="/usr/local/opt/php@7.4/sbin:$PATH"
+
+. /usr/local/opt/asdf/libexec/asdf.sh
