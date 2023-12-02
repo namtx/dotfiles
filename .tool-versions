@@ -1,10 +1,13 @@
-nodejs lts
+nodejs 16.17.0
 neovim nightly
 ruby 2.7.2
 rust 1.63.0
 java adoptopenjdk-17.0.5+8
 python 2.7.18
 gcloud 403.0.0
-php 8.2.0
+php 8.2.6
 maven 3.8.6
-golang 1.19.4
+golang 1.20
+stern 1.23.0
+sops 3.7.3
+pnpm 7.29.3
