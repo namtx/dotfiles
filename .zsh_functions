@@ -1,6 +1,6 @@
 function fpr() {
-  ls ~/Projects/personio | fzfp | read project
-  cd "/Users/namtx/Projects/personio/${project}"
+  ls ~/workspace/personio | fzfp | read project
+  cd "/Users/namtx/workspace/personio/${project}"
 }
 
 function wsf() {
@@ -28,17 +28,17 @@ function pr-checkout() {
 function conf() {
   case $1 in
     nvim)
-      nvim ~/.config/nvim/init.vim
+      nvim ~/.config/nvim
       ;;
-    skhd)
-      nvim ~/.config/skhd/skhdrc
-      ;;
-    kitty)
-      nvim ~/.config/kitty/kitty.conf
-      ;;
-    yabai)
-      nvim ~/.config/yabai/yabairc
-      ;;
+    # skhd)
+    #   nvim ~/.config/skhd/skhdrc
+    #   ;;
+    # kitty)
+    #   nvim ~/.config/kitty/kitty.conf
+    #   ;;
+    # yabai)
+    #   nvim ~/.config/yabai/yabairc
+    #   ;;
     zsh)
       nvim ~/.zshrc
       ;;
@@ -60,7 +60,7 @@ function airpod() {
 }
 
 function wtc() {
-  git commit -m "$(curl -s http://whatthecommit.com/index.txt)"
+  git commit -m "$(curl -s https://whatthecommit.com/index.txt)"
 }
 
 # UTILS
@@ -94,34 +94,14 @@ function gscf() {
   git log --graph --oneline | fzfp | choose 1 | xargs git show
 }
 
-optimize_route() {
-  local DOMAINS=(
-    nexus.tools.personio-internal.de
-    kibana-proxy.dev.personio-internal.de
-    1DFEA83B4F053FE7310FCB95F2A8F4FE.yl4.eu-central-1.eks.amazonaws.com
-    1A7EC99F8DD32DEC4B940DB52D56DBAC.yl4.eu-central-1.eks.amazonaws.com
-    8256616ACE24D01C134B29E751249585.sk1.eu-central-1.eks.amazonaws.com
-    admin.stage.personio-internal.de
-    admin.dev.personio-internal.de
-    gitlab.personio-internal.de
-    rundeck.prod.personio-internal.de
-    rundeck.stage.personio-internal.de
-  )
-  sudo route delete 128.0/1
-  sudo route delete 0/1
-  local vpn_gateway=172.27.248.1
-  for domain in "${DOMAINS[@]}"
-  do
-    echo "Resolve domain: $domain"
-    for ip in $(dig +short $domain)
-    do
-      echo "Add route for IP: $ip"
-      sudo route add $ip $vpn_gateway
-    done
-    echo "Added route for domain: $domain"
-    echo "-------"
-  done
+# fzf for picking asdf tool version
+function asdfzf() {
+  local tool
+  tool=$(asdf plugin list | fzfp)
+  asdf shell $tool $({asdf list $tool} | fzfp)
 }
+
+unalias gpod
 
 function gpod() {
   master_branch_exists=`git show-ref refs/heads/master`
@@ -133,10 +113,25 @@ function gpod() {
   fi
 }
 
+# Copy current branch into clipboard
+function ccg() {
+  git rev-parse --abbrev-ref HEAD | pbcopy
+}
+
 # Personio
 #
 # Run test through Kubernetes pod
 function kpunit() {
-  local pod_name=$(kubectl get pods | fzf | awk '{print $1}')
-  kubectl exec -it $pod_name -- vendor/phpunit/phpunit/phpunit $1
+  local pod_name=$(kubectl get pods -l app.kubernetes.io/name=web -o jsonpath={".items[0].metadata.name"})
+  if [ $# -ge 2 ]; then
+    kubectl exec -it $pod_name -- vendor/phpunit/phpunit/phpunit $1 --filter $2
+  else 
+    kubectl exec -it $pod_name -- vendor/phpunit/phpunit/phpunit $1
+  fi
 }
+
+findandkill() {  
+  port=$(lsof -n -i4TCP:$1 | grep LISTEN | awk '{ print $2 }')  
+  kill -9 $port
+} 
+alias killport=findandkill
