@@ -1,14 +1,15 @@
 PWD=$(pwd)
 # brew
-ln -s $PWD/Brewfile $HOME
+ln -sf $PWD/Brewfile $HOME
 
-ln -s $PWD/.zshrc $HOME
+ln -sf $PWD/.zshrc $HOME
+ln -sf $PWD/.zsh_functions $HOME/.zsh_functions
 
 # asdf
-ln -s $PWD/.tool-versions $HOME
+ln -sf $PWD/.tool-versions $HOME
 
 # tmux
-ln -s $PWD/.tmux.conf $HOME
+ln -sf $PWD/.tmux.conf $HOME
 
 # nvim
 # ln -s $PWD/nvim/init.vim $HOME/.config/nvim/init.vim
@@ -35,5 +36,5 @@ ln -s $PWD/.tmux.conf $HOME
 # karabiner
 # ln -s $PWD/karabiner/karabiner.json $HOME/.config/karabiner
 
-# tmux 
+# tmux
 # ln -s $PWD/.tmux.conf $HOME/.tmux.conf
