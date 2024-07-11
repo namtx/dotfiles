@@ -1,0 +1,38 @@
+#/bin/bash
+
+function gpod() {
+  master_branch_exists=`git show-ref refs/heads/master`
+  echo $master_branch_exists
+  if [ -n "$master_branch_exists" ]; then
+    git pull origin master
+  else
+    git pull origin main
+  fi
+}
+
+alias gam="git commit --amend --no-edit"
+
+function gcof() {
+  git branch --sort=-committerdate | grep -v '^\*' | fzf --reverse --info=inline | xargs git checkout
+}
+
+function gro() {
+  read -r -p "Are you sure you want to reset the current branch to origin? [y/N] " response
+
+  case $response in
+    [yY][eE][sS]|[yY])
+      git fetch origin --prune
+      git checkout $1
+      git reset --hard origin/$1
+      ;;
+    *)
+      echo "Aborted"
+      ;;
+  esac
+}
+
+# reset the current branch to origin
+function gro () {
+  git fetch origin
+  git reset --hard @{u}
+}
