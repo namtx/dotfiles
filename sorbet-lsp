@@ -1,0 +1,4 @@
+#!/bin/bash
+export PATH="/Users/namtx/.local/share/mise/shims:/Users/namtx/.local/bin:/opt/homebrew/bin:/opt/homebrew/sbin:$PATH"
+export TMPDIR=/tmp
+exec /Users/namtx/.local/share/mise/shims/bundle exec srb typecheck --lsp --disable-watchman "$@"
